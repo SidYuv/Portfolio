@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Engineer — Visual Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0A1B36;
+    --navy-mid:#15335F;
+    --cyan-accent:#3FC1F0;
+    --sidebar-bg:#EEF3FB;
+    --text-dark:#1B2735;
+    --text-gray:#566179;
+    --blue-keyword:#1A56DB;
+    --green-check:#0F8A52;
+    --green-bg:#E7F8EF;
+    --card-border:#E2E8F0;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    padding:28px 16px;
+    background:#DCE3EE;
+    font-family:'Inter', sans-serif;
+    color:var(--text-dark);
+    display:flex;
+    justify-content:center;
+  }
+
+  .resume{
+    width:100%;
+    max-width:1100px;
+    background:#fff;
+    box-shadow:0 12px 40px rgba(10,27,54,0.18);
+    overflow:hidden;
+  }
+
+  /* ---------- HEADER ---------- */
+  .header{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+    color:#fff;
+    padding:38px 44px 26px;
+  }
+  .header::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 46px),
+      repeating-linear-gradient(25deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 60px);
+    pointer-events:none;
+  }
+
+  .header-top{
+    position:relative; z-index:1;
+    display:flex;
+    gap:30px;
+    align-items:flex-start;
+  }
+
+  .photo{
+    width:128px; height:128px;
+    border-radius:50%;
+    border:4px solid rgba(255,255,255,0.9);
+    background:#C9D4E3;
+    flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 22px rgba(0,0,0,0.3);
+    overflow:hidden;
+  }
+  .photo svg{ width:62%; height:62%; color:#7C8CA6; }
+
+  .title-block{ flex:1 1 auto; min-width:0; padding-top:2px; }
+  .title-block .pre-name{
+    font-size:13px; letter-spacing:0.16em; font-weight:500;
+    color:#9FD8F5; margin-bottom:6px; text-transform:uppercase;
+  }
+  .title-block h1{
+    font-family:'Poppins', sans-serif;
+    font-size:clamp(28px,4vw,42px);
+    font-weight:700;
+    margin:0 0 6px;
+    letter-spacing:0.01em;
+  }
+  .title-block .years{
+    font-family:'Poppins', sans-serif;
+    font-size:18px; font-weight:600;
+    color:var(--cyan-accent);
+    margin-bottom:10px;
+  }
+  .title-block .tagline{
+    font-size:13.5px; line-height:1.7; color:#C7D6EA; max-width:540px;
+  }
+
+  .contact-box{
+    flex:0 0 280px;
+    border:1px solid rgba(94,180,230,0.4);
+    border-radius:8px;
+    padding:16px 20px;
+    background:rgba(255,255,255,0.04);
+    position:relative; z-index:1;
+  }
+  .contact-row{ display:flex; align-items:center; gap:10px; font-size:13px; color:#E7EEF8; padding:6px 0; }
+  .contact-row svg{ width:15px; height:15px; color:var(--cyan-accent); flex:0 0 auto; }
+
+  .tech-row{
+    position:relative; z-index:1;
+    display:flex; gap:26px; align-items:center;
+    margin-top:24px; flex-wrap:wrap;
+  }
+  .tech-item{ display:flex; flex-direction:column; align-items:center; gap:7px; }
+  .tech-item svg{ width:34px; height:34px; }
+  .tech-item span{ font-size:11.5px; color:#D7E3F2; text-align:center; font-weight:500; line-height:1.3; }
+  .tech-divider{ width:1px; height:42px; background:rgba(255,255,255,0.22); }
+  .c-blue{ color:#4FA6F0; } .c-orange{ color:#FF8A5C; } .c-teal{ color:#3FD3B8; }
+
+  /* ---------- BODY ---------- */
+  .body-grid{ display:grid; grid-template-columns:300px 1fr; }
+  .sidebar{ background:var(--sidebar-bg); padding:34px 28px; }
+  .main-col{ background:#fff; padding:34px 38px; }
+
+  .section{ margin-bottom:32px; }
+  .section:last-child{ margin-bottom:0; }
+  .section-head{ display:flex; align-items:center; gap:11px; margin-bottom:15px; }
+  .section-head.with-badge{ justify-content:space-between; }
+  .icon-badge{
+    width:32px; height:32px; border-radius:50%;
+    background:var(--navy-deep);
+    display:flex; align-items:center; justify-content:center;
+    flex:0 0 auto;
+  }
+  .icon-badge svg{ width:16px; height:16px; color:#fff; }
+  .section-head h2{
+    font-family:'Poppins', sans-serif; font-size:14px; font-weight:700;
+    letter-spacing:0.05em; color:var(--navy-deep); margin:0; text-transform:uppercase;
+  }
+  .pill-3yrs{
+    background:var(--navy-deep); color:#fff; font-size:11px; font-weight:600;
+    padding:5px 12px; border-radius:14px; letter-spacing:0.04em; flex:0 0 auto;
+  }
+
+  .skill-list{ list-style:none; padding:0; margin:0; }
+  .skill-list li{
+    position:relative; padding-left:15px; font-size:12.8px; color:var(--text-gray);
+    margin-bottom:11px; line-height:1.55;
+  }
+  .skill-list li:last-child{ margin-bottom:0; }
+  .skill-list li::before{
+    content:""; position:absolute; left:0; top:6px;
+    width:6px; height:6px; border-radius:50%; background:var(--cyan-accent);
+  }
+  .skill-list li b{ color:var(--text-dark); }
+
+  .stack-row{ display:flex; gap:11px; align-items:flex-start; margin-bottom:13px; }
+  .stack-row:last-child{ margin-bottom:0; }
+  .stack-row .ic{ width:26px; height:26px; flex:0 0 auto; color:var(--navy-mid); margin-top:1px; }
+  .stack-row .txt b{ display:block; font-size:12.6px; color:var(--text-dark); font-weight:600; }
+  .stack-row .txt span{ font-size:11.6px; color:var(--text-gray); }
+
+  .check-list{ list-style:none; padding:0; margin:0; }
+  .check-list li{
+    display:flex; gap:8px; align-items:flex-start; font-size:12.6px;
+    color:var(--text-dark); margin-bottom:10px;
+  }
+  .check-list li:last-child{ margin-bottom:0; }
+  .check-list li svg{ width:16px; height:16px; color:var(--green-check); flex:0 0 auto; margin-top:1px; }
+
+  .summary p{ font-size:13.6px; line-height:1.85; color:var(--text-gray); margin:0; }
+  .summary b{ color:var(--blue-keyword); font-weight:600; }
+
+  .highlight-row{ display:flex; gap:15px; padding:13px 0; border-bottom:1px solid #EEF1F6; }
+  .highlight-row:last-child{ border-bottom:none; padding-bottom:0; }
+  .highlight-row .ic-wrap{
+    width:40px; height:40px; border-radius:10px; background:var(--sidebar-bg);
+    display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+  }
+  .highlight-row .ic-wrap svg{ width:20px; height:20px; color:var(--navy-deep); }
+  .highlight-row h3{ font-family:'Poppins', sans-serif; font-size:13.6px; font-weight:600; margin:0 0 4px; color:var(--text-dark); }
+  .highlight-row p{ font-size:12.6px; color:var(--text-gray); margin:0; line-height:1.6; }
+
+  .project-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .project-card{ border:1px solid var(--card-border); border-radius:10px; padding:17px 19px; }
+  .project-card h3{
+    display:flex; gap:8px; align-items:center; font-family:'Poppins', sans-serif;
+    font-size:13.5px; font-weight:600; color:var(--blue-keyword); margin:0 0 10px;
+  }
+  .project-card h3 svg{ width:17px; height:17px; flex:0 0 auto; }
+  .project-card ul{ list-style:none; padding:0; margin:0 0 13px; }
+  .project-card li{
+    position:relative; padding-left:13px; font-size:12.2px; color:var(--text-gray);
+    margin-bottom:7px; line-height:1.55;
+  }
+  .project-card li::before{ content:"•"; position:absolute; left:0; color:var(--cyan-accent); }
+  .metric-pill{
+    display:inline-flex; align-items:center; gap:6px; background:var(--green-bg);
+    color:var(--green-check); font-size:11.6px; font-weight:600; padding:6px 12px; border-radius:14px;
+  }
+  .metric-pill svg{ width:13px; height:13px; }
+
+  /* ---------- FOOTER ---------- */
+  .footer{
+    background:var(--navy-deep); color:#fff; text-align:center;
+    padding:16px; font-size:13.5px; display:flex; align-items:center;
+    justify-content:center; gap:9px; font-family:'Poppins', sans-serif; font-weight:500;
+  }
+  .footer svg{ width:16px; height:16px; color:#FFD166; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:780px){
+    .header-top{ flex-direction:column; align-items:center; text-align:center; }
+    .contact-box{ width:100%; flex:1 1 auto; }
+    .tech-row{ justify-content:center; }
+    .title-block .tagline{ max-width:none; }
+    .body-grid{ grid-template-columns:1fr; }
+    .project-grid{ grid-template-columns:1fr; }
+  }
+
+  @media print{
+    body{ background:#fff; padding:0; }
+    .resume{ box-shadow:none; max-width:100%; }
+    *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Icon sprite sheet — generic outline icons, defined once and reused via <use> -->
+<svg style="display:none">
+  <defs>
+    <symbol id="i-person-fill" viewBox="0 0 100 100"><circle cx="50" cy="36" r="20" fill="currentColor"/><path d="M15 92 C15 65 30 55 50 55 C70 55 85 65 85 92 Z" fill="currentColor"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5l9 6.5 9-6.5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3.2l1.4 4-2 1.6a13 13 0 0 0 6.8 6.8l1.6-2 4 1.4V19a2 2 0 0 1-2 2C10.5 21 3 13.5 3 6a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="12" cy="18" r="2.2"/><path d="M7.6 7.6L10.4 16.4M16.4 7.6L13.6 16.4M8.2 6h7.6"/></symbol>
+    <symbol id="i-branch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M6 8.2V15.8M6 8.2c0 4 4 4 4 4h6"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6L4 12l5 6M15 6l5 6-5 6"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4.5 4.5 0 0 1-.4-9A5.5 5.5 0 0 1 17.4 8 4 4 0 0 1 17 18H7z"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-user-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="9.5" r="3"/><path d="M5.5 18.5c1.5-3 4-4 6.5-4s5 1 6.5 4"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7.5" width="19" height="12" rx="2"/><path d="M8 7.5V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1.5M2.5 13h19"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5a1.5 1.5 0 0 1 1.5-1.5h4.4l2 2.2H19.5A1.5 1.5 0 0 1 21 8.7v9.3a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18V6.5z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.6 2.6L16.5 9"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></symbol>
+    <symbol id="i-pipeline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="2"/><path d="M3 12h18M7 9v-2M17 15v2"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+    <symbol id="i-ribbon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l9 5-9 5V6z"/><path d="M11 6l9 5-9 5"/></symbol>
+    <symbol id="i-cylinder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7.5" ry="3"/><path d="M4.5 6v12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6"/><path d="M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/></symbol>
+    <symbol id="i-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V10M12 19V5M19 19v-7"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="4.2"/><path d="M11 11l9 9M16.5 16.5l2.5-2.5M19 19l2-2"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/><circle cx="12" cy="16" r="1.3" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a8 8 0 0 1 14-4.9M20 14a8 8 0 0 1-14 4.9"/><path d="M18 3v5h-5M6 21v-5h5"/></symbol>
+  </defs>
+</svg>
+
+<div class="resume">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div class="photo">
+        <svg><use href="#i-person-fill"/></svg>
+        <!-- Replace the svg above with: <img src="/Users/siddharthdarnal/Downloads/chrome/Resume/dp.png" style="width:100%;height:100%;object-fit:cover;"> -->
+      </div>
+
+      <div class="title-block">
+        <div class="pre-name">SIDDHARTH DARNAL</div>
+        <h1>Data Engineer</h1>
+        <div class="years">3+ Years of Experience</div>
+        <div class="tagline">Building scalable data pipelines &nbsp;|&nbsp; Driving insights &nbsp;|&nbsp; Empowering data-driven decisions</div>
+      </div>
+
+      <div class="contact-box">
+        <div class="contact-row"><svg><use href="#i-mail"/></svg> siddharth.darnal@yahoo.com </div>
+        <!-- <div class="contact-row"><svg><use href="#i-phone"/></svg> [+1 555 555 5555]</div> -->
+        <div class="contact-row"><svg><use href="#i-pin"/></svg> Bengaluru-Kolkata, India</div>
+        <div class="contact-row"><svg><use href="#i-network"/></svg> https://www.linkedin.com/in/siddharth-darnal-99b328171/</div>
+        <!-- <div class="contact-row"><svg><use href="#i-branch"/></svg> github.com/[you]</div> -->
+      </div>
+    </div>
+
+    <div class="tech-row">
+      <div class="tech-item"><svg class="c-blue"><use href="#i-pipeline"/></svg><span>Azure Data<br>Factory</span></div>
+      <div class="tech-item"><svg class="c-orange"><use href="#i-layers"/></svg><span>Databricks</span></div>
+      <div class="tech-item"><svg class="c-teal"><use href="#i-ribbon"/></svg><span>Microsoft<br>Fabric</span></div>
+      <div class="tech-divider"></div>
+      <div class="tech-item"><svg class="c-blue"><use href="#i-cloud"/></svg><span>Microsoft<br>Azure</span></div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body-grid">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <div class="section">
+        <div class="section-head">
+          <div class="icon-badge"><svg><use href="#i-code"/></svg></div>
+          <h2>Technical Skills</h2>
+        </div>
+        <ul class="skill-list">
+          <li><b>Programming:</b> Python, SQL, PySpark</li>
+          <li><b>Data Engineering:</b> ETL/ELT, Data Modeling, Data Warehousing</li>
+          <li><b>Big Data:</b> Spark, Delta Lake, Hadoop</li>
+          <li><b>Orchestration:</b> ADF, Databricks Workflows, Fabric Pipelines, Airflow</li>
+          <!-- <li><b>Databases:</b> Azure SQL DB, Synapse, SQL Server, Cosmos DB</li> -->
+          <li><b>Cloud:</b> Microsoft Azure</li>
+          <li><b>Version Control:</b> Git, GitHub</li>
+          <li><b>Other:</b> REST API, JSON, Parquet, CI/CD</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <div class="icon-badge"><svg><use href="#i-cloud"/></svg></div>
+          <h2> Tech Stack</h2>
+        </div>
+        <div class="stack-row"><svg class="ic"><use href="#i-pipeline"/></svg><div class="txt"><b>Azure Data Factory</b><span>Data ingestion &amp; orchestration</span></div></div>
+        <div class="stack-row"><svg class="ic"><use href="#i-layers"/></svg><div class="txt"><b>Azure Databricks</b><span>Data processing &amp; analytics</span></div></div>
+        <div class="stack-row"><svg class="ic"><use href="#i-ribbon"/></svg><div class="txt"><b>Microsoft Fabric</b><span>Unified analytics platform</span></div></div>
+        <div class="stack-row"><svg class="ic"><use href="#i-cylinder"/></svg><div class="txt"><b>Azure Data Lake (ADLS Gen2)</b><span>Scalable data storage</span></div></div>
+        <div class="stack-row"><svg class="ic"><use href="#i-bars"/></svg><div class="txt"><b>Azure Synapse Analytics</b><span>Data warehousing</span></div></div>
+        <div class="stack-row"><svg class="ic"><use href="#i-key"/></svg><div class="txt"><b>Azure Key Vault</b><span>Security &amp; secrets management</span></div></div>
+        <!-- <div class="stack-row"><svg class="ic"><use href="#i-gauge"/></svg><div class="txt"><b>Azure Monitor</b><span>Monitoring &amp; alerts</span></div></div> -->
+        <!-- <div class="stack-row"><svg class="ic"><use href="#i-refresh"/></svg><div class="txt"><b>Azure DevOps</b><span>CI/CD &amp; automation</span></div></div> -->
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <div class="icon-badge"><svg><use href="#i-target"/></svg></div>
+          <h2>Core Competencies</h2>
+        </div>
+        <ul class="check-list">
+          <li><svg><use href="#i-check"/></svg> End-to-end Data Pipeline Development</li>
+          <li><svg><use href="#i-check"/></svg> Scalable &amp; Maintainable Architecture</li>
+          <li><svg><use href="#i-check"/></svg> Data Modeling &amp; Optimization</li>
+          <li><svg><use href="#i-check"/></svg> Performance Tuning</li>
+          <li><svg><use href="#i-check"/></svg> Data Quality &amp; Governance</li>
+          <li><svg><use href="#i-check"/></svg> Strong Analytical &amp; Problem Solving</li>
+          <li><svg><use href="#i-check"/></svg> Agile Collaboration &amp; Communication</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- MAIN COLUMN -->
+    <div class="main-col">
+
+      <div class="section summary">
+        <div class="section-head">
+          <div class="icon-badge"><svg><use href="#i-user-circle"/></svg></div>
+          <h2>Professional Summary</h2>
+        </div>
+        <p>Data Engineer with <b>3+ years</b> of experience designing, building, and maintaining scalable data pipelines and data platforms on Microsoft Azure. Skilled in <b>Azure Data Factory, Databricks, and Microsoft Fabric</b> to ingest, transform, and analyze data from diverse sources. Passionate about delivering reliable data solutions that drive business value.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-head with-badge">
+          <div style="display:flex;align-items:center;gap:11px;">
+            <div class="icon-badge"><svg><use href="#i-briefcase"/></svg></div>
+            <h2>Experience Highlights</h2>
+          </div>
+          <span class="pill-3yrs">3+ YEARS</span>
+        </div>
+
+        <div class="highlight-row">
+          <div class="ic-wrap"><svg><use href="#i-pipeline"/></svg></div>
+          <div><h3>Data Pipeline Development</h3><p>Designed and implemented end-to-end ETL/ELT pipelines using ADF and Databricks to ingest data from multiple sources into ADLS and Synapse.</p></div>
+        </div>
+        <div class="highlight-row">
+          <div class="ic-wrap"><svg><use href="#i-layers"/></svg></div>
+          <div><h3>Data Processing &amp; Transformation</h3><p>Used Databricks (PySpark, SQL) and Delta Lake to perform complex transformations on large-scale datasets.</p></div>
+        </div>
+        <div class="highlight-row">
+          <div class="ic-wrap"><svg><use href="#i-ribbon"/></svg></div>
+          <div><h3>Microsoft Fabric Implementation</h3><p>Built and managed data pipelines, lakehouses, notebooks, and dashboards using Microsoft Fabric for unified analytics.</p></div>
+        </div>
+        <div class="highlight-row">
+          <div class="ic-wrap"><svg><use href="#i-bars"/></svg></div>
+          <div><h3>Data Modeling &amp; Warehousing</h3><p>Designed dimensional models and built scalable data warehouses in Azure Synapse for reporting and analytics.</p></div>
+        </div>
+        <div class="highlight-row">
+          <div class="ic-wrap"><svg><use href="#i-gauge"/></svg></div>
+          <div><h3>Data Quality &amp; Monitoring</h3><p>Implemented data quality checks, logging, and monitoring using Azure Monitor and alerts to ensure data reliability.</p></div>
+        </div>
+        <div class="highlight-row">
+          <div class="ic-wrap"><svg><use href="#i-refresh"/></svg></div>
+          <div><h3>CI/CD &amp; Automation</h3><p>Implemented CI/CD pipelines using Azure DevOps for automated deployment of data pipelines and notebooks.</p></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <div class="icon-badge"><svg><use href="#i-briefcase"/></svg></div>
+          <h2>Work Experience</h2>
+        </div>
+        <div class="project-grid">
+          <div class="project-card">
+            <h3><svg><use href="#i-briefcase"/></svg> Sundew Solutions</h3>
+            <ul>
+              <li>Owned the development and scaling of robust data pipelines within the Databricks and Azure Fabric
+ecosystem to support enterprise analytics.</li>
+              <li>Collaborated with cross-functional teams to analyze current data architecture.</li>
+              <li>Tasks include ingesting data, automating workflow orchestration, optimizing pipelines, and ensuring data
+quality across production environments.</li>
+              <!-- <li>Processed [X]M+ records daily using PySpark and Delta Lake</li> -->
+              <!-- <li>Data warehoused in Synapse and visualized in Power BI</li> -->
+            </ul>
+            <span class="metric-pill"><svg><use href="#i-check"/></svg> May 2026 to Present</span>
+          </div>
+          <div class="project-card">
+            <h3><svg><use href="#i-briefcase"/></svg> Tech Mahindra</h3>
+            <ul>
+              <li>Built and maintained scalable metadata-driven ETL pipelines using Azure Data Factory (ADF), Databricks, and PySpark for processing structured and semi-structured data. Optimized Spark workloads through partitioning and broadcast joins, improving performance and reducing costs. Implemented PII standardization, schema evolution handling, workflow automation via Databricks REST APIs, and monitoring dashboards to ensure reliable and efficient data operations. Collaborated with cross-functional teams, led a team of two, and delivered high-quality data migration and data quality solutions with improved operational efficiency.</li>
+              <!-- <li>Used Microsoft Fabric for data integration, transformation and semantic modeling</li> -->
+              <!-- <li>Enabled real-time insights and a unified customer view</li> -->
+            </ul>
+            <span class="metric-pill"><svg><use href="#i-check"/></svg> Jan 2023 to April 2026</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <svg><use href="#i-star"/></svg> Let's connect and build data solutions that make an impact!
+  </div>
+
+</div>
+
+</body>
+</html>
